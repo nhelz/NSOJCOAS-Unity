@@ -16,7 +16,7 @@ public class SectionTabMenus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SelectedSection = Sections[0];
     }
 
     // Update is called once per frame
@@ -27,7 +27,8 @@ public class SectionTabMenus : MonoBehaviour
 
     public void EnableSections(string planetName)
     {
-        if(planetName == "Social Media")
+        SelectedSection.GetComponent<SectionHighlight>().ToggleHighlight(false);
+        if (planetName == "Social Media")
         {
             numberOfTabs = 1;
             Sections[0].GetComponentInChildren<Text>().text = "Social Media";
@@ -66,6 +67,7 @@ public class SectionTabMenus : MonoBehaviour
             numberOfTabs = 1;
             Sections[0].GetComponentInChildren<Text>().text = "Credits";
         }
+        
         ActivateSectionHeaders();
     }
 
@@ -75,5 +77,14 @@ public class SectionTabMenus : MonoBehaviour
         {
             Sections[i].SetActive(numberOfTabs - 1 >= i);
         }
+        Sections[0].GetComponent<SectionHighlight>().ToggleHighlight(true);
+        SelectedSection = Sections[0];
+    }
+
+    public void SelectSection(int selectedSection)
+    {
+        SelectedSection.GetComponent<SectionHighlight>().ToggleHighlight(false);
+        SelectedSection = Sections[selectedSection];
+        SelectedSection.GetComponent<SectionHighlight>().ToggleHighlight(true);
     }
 }

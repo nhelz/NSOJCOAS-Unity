@@ -13,6 +13,8 @@ public class PlanetAnimations : MonoBehaviour
     private Vector2[] planetSizes;
     [SerializeField]
     private string currentPlanet;
+    [SerializeField]
+    private GameObject infront, behind;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +54,17 @@ public class PlanetAnimations : MonoBehaviour
             newPlanets[next] = Planets[i];
         }
         Planets = newPlanets;
+        for(int i = 0; i < Planets.Length; i++)
+        {
+            if(i == 2 || i == 3)
+            {
+                Planets[i].transform.SetParent(behind.transform, false);
+            }
+            else
+            {
+                Planets[i].transform.SetParent(infront.transform, false);
+            }
+        }
         currentPlanet = newPlanets[0].name;
         sectionTabMenus.EnableSections(currentPlanet);
     }
