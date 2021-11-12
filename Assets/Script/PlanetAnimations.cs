@@ -15,11 +15,12 @@ public class PlanetAnimations : MonoBehaviour
     private string currentPlanet;
     [SerializeField]
     private GameObject infront, behind;
-
+    private bool comingFromFullPage = false;
     // Start is called before the first frame update
     void Start()
     {
         currentPlanet = "Social Media";
+        GameObject.Find("PlanetTracker").GetComponent<PlanetTracker>().SetCurrentPlanet(currentPlanet);
         sectionTabMenus.EnableSections(currentPlanet);
         planetPositions = new Vector3[5];
         planetSizes = new Vector2[5];
@@ -66,6 +67,28 @@ public class PlanetAnimations : MonoBehaviour
             }
         }
         currentPlanet = newPlanets[0].name;
-        sectionTabMenus.EnableSections(currentPlanet);
+        GameObject.Find("PlanetTracker").GetComponent<PlanetTracker>().SetCurrentPlanet(currentPlanet);
+        GameObject.Find("PlanetTracker").GetComponent<PlanetTracker>().SetCurrentSectionNum(0);
+        
+        //sectionTabMenus.EnableSections(currentPlanet);
+    }
+
+    public void UpdateFromFullPage()
+    {
+        string newCurrentPlanet = GameObject.Find("PlanetTracker").GetComponent<PlanetTracker>().currentPlanet;
+        int newCurrent = 0;
+        for(int i = 0; i < Planets.Length; i++)
+        {
+            if(Planets[i].name == newCurrentPlanet)
+            {
+                newCurrent = i;
+            }
+        }
+        comingFromFullPage = true;
+        for (int i = 0; i < newCurrent; i++)
+        {
+            SwapPlaces(-1);
+        }
+        comingFromFullPage = false;
     }
 }

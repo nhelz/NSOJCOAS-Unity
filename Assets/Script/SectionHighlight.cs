@@ -11,7 +11,7 @@ public class SectionHighlight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ToggleHighlight(highlighted);
+        //ToggleHighlight(highlighted);
     }
 
     // Update is called once per frame
